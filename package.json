@@ -4,7 +4,9 @@
   "description": "A Stripe backend designed to run on webtask.io",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "init": "./node_modules/wt-cli/bin/wt init",
+    "deploy": "chmod +x ./devops/deploy.sh; ./devops/deploy.sh",
+    "smoke-test": "chmod +x ./devops/smoke-test.sh; ./devops/smoke-test.sh"
   },
   "repository": {
     "type": "git",
@@ -21,6 +23,7 @@
   },
   "homepage": "https://github.com/langboost/stripe-webtask-io#readme",
   "devDependencies": {
+    "dotenv": "^6.1.0",
     "wt-cli": "^11.0.0"
   }
 }
