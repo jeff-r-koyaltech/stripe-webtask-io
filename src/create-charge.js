@@ -7,9 +7,10 @@ module.exports = function(ctx, cb) {
     let chargeReq = {
         amount: body.amount,
         currency: body.currency || 'usd',
-        source: body.token,
+        customer: body.customerId,
+        source: body.sourceId,
         description: body.description,
-        receipt_email: body.email
+        statement_descriptor: body.description
     }
 
     stripe.charges.create(chargeReq)

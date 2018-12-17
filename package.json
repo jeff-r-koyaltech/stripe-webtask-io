@@ -6,7 +6,7 @@
   "scripts": {
     "init": "./node_modules/wt-cli/bin/wt init",
     "deploy": "chmod +x ./devops/deploy.sh; ./devops/deploy.sh",
-    "smoke-test": "chmod +x ./devops/smoke-test.sh; ./devops/smoke-test.sh"
+    "test": "./node_modules/.bin/mocha --reporter spec \"test/**/*.spec.js\""
   },
   "repository": {
     "type": "git",
@@ -23,7 +23,11 @@
   },
   "homepage": "https://github.com/langboost/stripe-webtask-io#readme",
   "devDependencies": {
+    "axios": "^0.18.0",
+    "chai": "^4.2.0",
+    "chai-string": "^1.5.0",
     "dotenv": "^6.1.0",
+    "mocha": "^5.2.0",
     "wt-cli": "^11.0.0"
   }
 }
