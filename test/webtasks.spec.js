@@ -10,8 +10,6 @@ chai.use(require('chai-string'))
 describe("Webtask.io", () => {
     describe("Customers and Sources", () => {
 
-        let testingCustomerId = null
-        
         it("Should upsert a customer with a default, specified payment source.", () => {
             let ownerObj = {
                 owner: {
@@ -34,20 +32,15 @@ describe("Webtask.io", () => {
                     expect(result.source).to.equal('tok_visa')
                 })
         })
+    })
 
-        it("Should create a one-time charge for a known customer", () => {
-            expect(testingCustomerId).to.not.be.null
-
-            let data = {
-                sourceId: "tok_visa",
-                customerId: testingCustomerId || "cus_123",
-                amount: 1000,
-                description: "Regression testing"
-              }
-
-            return client.createCardCharge(data)
-                .then((chargeId) => {
-                    expect(chargeId).to.startsWith('ch_')
+    describe("Products and Plans", () => {
+        it("Should list more than one product", () => {
+            return client.getProducts()
+                .then((products) => {
+                    expect(products).to.not.be.null
+                    expect(products.data).to.not.be.null
+                    expect(products.data.length).to.be.above(1)
                 })
         })
     })
