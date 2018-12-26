@@ -53,6 +53,16 @@ const getProduct = () => {
   })
 }
 
+const getProducts = () => {
+  return new Promise((resolve, reject) => {
+    axios.get(`${baseUrl}/products`)
+      .then(function (res) {
+        resolve(res.data)
+      })
+      .catch((error) => reject(error))
+  })
+}
+
 const getPlansByProductId = (productId) => {
   return new Promise((resolve, reject) => {
     axios.get(`${baseUrl}/plans?productId=${productId}`)
@@ -72,5 +82,6 @@ exports.default = {
     upsertCustomerWithSource,
     upsertSubscription,
     getProduct,
+    getProducts,
     getPlansByProductId
   }
