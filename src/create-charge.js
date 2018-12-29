@@ -10,8 +10,8 @@ module.exports = function(ctx, cb) {
         customer: body.customerId,
         source: body.sourceId,
         description: body.description,
-        statement_descriptor: body.description
-    }
+        statement_descriptor: body.statement_descriptor
+      }
 
     stripe.charges.create(chargeReq)
         .then((result) => cb(null, result))
