@@ -16,7 +16,10 @@ module.exports = function(ctx, cb) {
     return new Promise((resolve, reject) => {
       stripe.customers.retrieve(customerId)
         .then((customer) => {
-          if (customer.subscriptions.data.length === 0) {
+          let subscriptions = customer.subscriptions.data.filter((subscription) => {
+            return (subscription.plan.id === planId)
+          })
+          if (subscriptions.length === 0) {
             let subCreateObj = {
               customer: customerId,
               items: [{
@@ -30,7 +33,9 @@ module.exports = function(ctx, cb) {
               })
               .catch((error) => { reject(error) })
           } else {
-            let subscription = customer.subscriptions.data[0]
+            let subscription = subscriptions[0]
+            // best we can tell, existing subscriptions always have a subscription
+            // item that corresponds to the plan
             if (subscription.items.data.length > 0) {
               let subItem = subscription.items.data[0]
               let subUpdateObj = {
